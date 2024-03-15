@@ -1,29 +1,41 @@
 "use client"
-
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 export default function Home() {
   const router = useRouter()
   const [user, setUser] = useState({})
 
-  useEffect(()=>{
-    async function getUser(){
-      await supabase.auth.getUser().then((value)=>{
-        if(value.data?.user){
-          console.log(value.data?.user)
-          setUser(value.data?.user)
-        }
-      })
+  async function getUser(){
+    await supabase.auth.getUser().then((value)=>{
+      if(value.data?.user){
+        console.log(value.data?.user)
+        setUser(value.data?.user)
+      }
+    })
+  }
+
+  async function getSessions(){
+    try {
+      const {data:{session}} = await supabase.auth.getSession()
+      if(!session){
+        router.push("/login")
+      }
+      console.log(session, "ini session")
+    } catch (error) {
+      console.log(error)
     }
+  }
+
+  useEffect(()=>{
+    getSessions()
     getUser()
   },[])
 
   const handleLogout = async()=>{
-    const {error} = await  supabase.auth.signOut()
+    const {error} = await supabase.auth.signOut()
     router.push("/login")
   }
   console.log(user, "user")
