@@ -1,8 +1,10 @@
 "use client"
 import { supabase } from "@/lib/supabase";
 import Image from "next/image";
+import { Button } from "@/components/ui/button"
 import { useRouter, redirect } from "next/navigation";
 import { useEffect, useState } from "react";
+import ButtonLogout from "@/components/ButtonLogout";
 
 export default function Home() {
   const router = useRouter()
@@ -11,7 +13,6 @@ export default function Home() {
   async function getUser(){
     await supabase.auth.getUser().then((value)=>{
       if(value.data?.user){
-        console.log(value.data?.user)
         setUser(value.data?.user)
       }
     })
@@ -31,25 +32,12 @@ export default function Home() {
 
   useEffect(()=>{
     getSessions()
-    getUser()
   },[])
 
-  const handleLogout = async()=>{
-    const {error} = await supabase.auth.signOut()
-    router.push("/login")
-  }
   console.log(user, "user")
   return (
     <div>
-      {Object.keys(user).length !== 0 ? (
-        <>
-          <h1>{user.user_metadata.full_name}</h1>
-          <button type="button" onClick={handleLogout}>Logout</button>
-        </>
-      ): (
-        <h1>tidak ada user</h1>
-      )}
-      
+      <h1>home page</h1>
     </div>
   );
 }

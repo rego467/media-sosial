@@ -1,26 +1,14 @@
-"use client"
-import { supabase } from "@/lib/supabase";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { createClient } from "@supabase/supabase-js";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import ButtonLogin from "@/components/ButtonLogin";
 
 export default function Login(){
-  const handleLogin = async()=>{
-    await supabase.auth.signInWithOAuth({provider:"discord"})
-  }
+
   return(
     <div className="flex bg-neutral-800 h-screen">
       <div className="flex-1 flex justify-center items-center">
-        {/* <Auth 
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          providers={["discord"]}
-        /> */}
-        <button onClick={handleLogin}>login with discord</button>
+        <ButtonLogin />
       </div>
-      <div className="flex-1">
+      <div className="flex-1 hidden lg:inline-block">
         <div className="relative flex h-full w-full">
           <Image 
             src={"/foto-login.jpg"}
