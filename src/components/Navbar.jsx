@@ -6,6 +6,7 @@ import ButtonLogout from "./ButtonLogout"
 
 export default function Navbar(){
   const [user, setUser] = useState({})
+  // git push -u origin main
   const getUser = async()=>{
     try {
       const {data:{user}} = await supabase.auth.getUser()
@@ -20,13 +21,13 @@ export default function Navbar(){
   },[])
 
   return(
-    <div className="container flex bg-white">
-      <div className="flex justify-between">
-        <h1>MediaSosial</h1>
+    <div className="container flex border-b">
+      <div className="flex items-center p-2 justify-between w-full">
+        <h1 className="text-white font-medium text-xl">MediaSosial</h1>
         <div>
           {
             Object.keys(user).length !== 0 ? (
-              <div>
+              <div className="flex items-center space-x-3">
                 <h1>{user.user_metadata.full_name}</h1>
                 <ButtonLogout />
               </div>

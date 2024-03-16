@@ -5,18 +5,11 @@ import { Button } from "@/components/ui/button"
 import { useRouter, redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import ButtonLogout from "@/components/ButtonLogout";
+import Sidebar from "@/components/Sidebar";
+import TopNavbar from "@/components/TopNavbar";
 
 export default function Home() {
   const router = useRouter()
-  const [user, setUser] = useState({})
-
-  async function getUser(){
-    await supabase.auth.getUser().then((value)=>{
-      if(value.data?.user){
-        setUser(value.data?.user)
-      }
-    })
-  }
 
   async function getSessions(){
     try {
@@ -34,10 +27,15 @@ export default function Home() {
     getSessions()
   },[])
 
-  console.log(user, "user")
+
   return (
-    <div>
-      <h1>home page</h1>
+    <div className="container flex p-2 gap-2">
+      <div className="my-2">
+        <Sidebar />
+      </div>
+      <div className="flex-1">
+        <TopNavbar />
+      </div>
     </div>
   );
 }
