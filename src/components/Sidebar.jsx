@@ -4,6 +4,7 @@ import { GoHome } from "react-icons/go";
 import { TbUsers } from "react-icons/tb";
 import Link from "next/link";
 import ButtonLogout from "./ButtonLogout";
+import { CgProfile } from "react-icons/cg";
 
 export default function Sidebar(){
   return(
@@ -17,6 +18,10 @@ export default function Sidebar(){
         <Link href={"/"} className="flex gap-2.5 text-lg items-center">
           <TbUsers size={29}/>
           <span>Friends</span>
+        </Link>
+        <Link href={"/"} className="flex gap-2.5 text-lg items-center">
+          <CgProfile size={29}/>
+          <span>Profile</span>
         </Link>
         <Link href={"/"} className="flex gap-2.5 text-lg items-center">
           <IoNotificationsOutline size={29}/>
