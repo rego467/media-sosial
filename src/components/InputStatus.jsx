@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase"
 import { useEffect, useState } from "react"
 import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import Image from "next/image"
+import { revalidatePath } from "next/cache"
 
 export default function InputStatus(){
   const [user,setUser] = useState({})
@@ -53,6 +54,7 @@ export default function InputStatus(){
                   value={content}
                   onChange={(e)=>setContent(e.target.value)} 
                   placeholder={`Whats on your mind, @${user.user_metadata.full_name}?`} 
+                  className="flex text-base"
                 />
               </div>
               <div className="flex items-center justify-between">
