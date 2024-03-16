@@ -1,10 +1,8 @@
 "use client"
 import { supabase } from "@/lib/supabase";
-import Image from "next/image";
-import { Button } from "@/components/ui/button"
-import { useRouter, redirect } from "next/navigation";
-import { useEffect, useState } from "react";
-import ButtonLogout from "@/components/ButtonLogout";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
 import Sidebar from "@/components/Sidebar";
 import TopNavbar from "@/components/TopNavbar";
 
@@ -17,7 +15,6 @@ export default function Home() {
       if(!session){
         router.push("/login")
       }
-      console.log(session, "ini session")
     } catch (error) {
       console.log(error)
     }

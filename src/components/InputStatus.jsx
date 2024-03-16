@@ -8,11 +8,23 @@ import Image from "next/image"
 
 export default function InputStatus(){
   const [user,setUser] = useState({})
+  const [content,setContent] = useState("")
 
   const getUser = async()=>{
     try {
       const {data:{user}} = await supabase.auth.getUser()  
       setUser(user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const createPost = async()=>{
+    try {
+      const {data, error} = await supabase.from("posts").insert({content:content, user_id:user.id})
+      if(data){
+        console.log(data, 'create new post')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -37,14 +49,18 @@ export default function InputStatus(){
                   priority
                   className="rounded-full"
                 />
-                <Textarea placeholder={`Whats on your mind, @${user.user_metadata.full_name}?`} />
+                <Textarea
+                  value={content}
+                  onChange={(e)=>setContent(e.target.value)} 
+                  placeholder={`Whats on your mind, @${user.user_metadata.full_name}?`} 
+                />
               </div>
               <div className="flex items-center justify-between">
                 <button className="flex items-center space-x-1.5">
                   <MdOutlinePhotoSizeSelectActual color="white" size={29}/>
                   <span className="text-white font-medium">Photos</span>
                 </button>
-                <Button>Send</Button>
+                <Button onClick={createPost}>Send</Button>
               </div>
             </div>
           ): (null)

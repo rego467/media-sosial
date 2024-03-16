@@ -1,3 +1,4 @@
+import CardPosts from "./CardPosts"
 import InputStatus from "./InputStatus"
 
 export default function TopNavbar(){
@@ -5,6 +6,9 @@ export default function TopNavbar(){
     <div className="flex flex-col p-2">
       <div>
         <InputStatus />
+      </div>
+      <div className="flex my-5">
+        <CardPosts />
       </div>
     </div>
   )
